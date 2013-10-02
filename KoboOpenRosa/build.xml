@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="OpenRosa" default="gwtc" basedir=".">
+	<!-- Configure path to GWT SDK -->
+	<property name="gwt.sdk" location="/home/gary/usr/lib/gwt-2.0.3" />
+
+	<property file="deployer.properties" />
+
+	<!-- Configure the folder and context path for this application -->
+	<property name="webapp" value="KoBoFormDesigner" />
+	<property name="path" value="/KoBoFormDesigner" />
+
+	<!-- Configure properties to access the Manager application -->
+	<property name="url" value="http://garyhendrick.com/manager" />
+	<property name="username" value="gary" />
+	<property name="password" value="ch0gB055" />
+
+	<property name="webapp.path" value="${webapp}" />
+
+	<path id="deployer.classpath">
+		<fileset dir="/home/gary/usr/lib/apache-tomcat-5.5.31-deployer/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Configure the custom Ant tasks for the Manager application -->
+	<taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="deployer.classpath" />
+
+	<!-- SWT on Mac requires the -XstartOFirstThreadFlag. -->
+	<condition property="XstartOnFirstThreadFlag" value="-XstartOnFirstThread" else="-Dgwt.dummy.arg1=">
+		<os family="mac" />
+	</condition>
+
+	<!-- SWT on Mac requires the -d32 flag if the VM is 64-bit. -->
+	<condition property="d32Flag" value="-d32" else="-Dgwt.dummy.arg2=">
+		<and>
+			<os family="mac" />
+			<equals arg1="${sun.arch.data.model}" arg2="64" />
+		</and>
+	</condition>
+
+	<path id="project.class.path">
+		<pathelement location="war/WEB-INF/classes" />
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<fileset dir="../SharedLib/lib" includes="gwt-datepicker-r29.jar" />
+		<fileset dir="../FormDesigner/lib" includes="gwt-dnd-3.0.1.jar" />
+		<fileset dir="../OpenRosa/lib" includes="gxt.jar" />
+		<!-- Add any additional non-server libs (such as JUnit) -->
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+	<path id="project.source.path">
+		<pathelement location="../SharedLib/src" />
+		<pathelement location="../FormDesigner/src" />
+		<pathelement location="src" />
+	</path>
+
+	<path id="launcher.source.path">
+		<fileset dir="src" includes="org/openrosa/KoboFormDesignerLaunch.java" />
+	</path>
+	
+	<path id="launcher.class.path">
+			<pathelement location="classes/"/>
+			<fileset dir="../OpenRosa/lib" includes="**/*.jar" />
+	</path>
+
+	<target name="copylibs" description="Copy libs to WEB-INF/lib">
+		<mkdir dir="war/WEB-INF/lib" />
+		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+		<copy todir="war/WEB-INF/lib" file="lib/commons-fileupload-1.2.1.jar" />
+		<copy todir="war/WEB-INF/lib" file="../FormDesigner/lib/commons-io-1.1.jar" />
+		<!-- Add any additional server libs that need to be copied -->
+	</target>
+
+	<target name="compile" depends="copylibs" description="Compiles Java source and copies other source files to the WAR.">
+		<mkdir dir="war/WEB-INF/classes" />
+		<copy todir="war/WEB-INF/classes">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<javac srcdir="src" sourcepathref="project.source.path" destdir="war/WEB-INF/classes" classpathref="project.class.path" debug="on" />
+	</target>
+
+	<target name="gwtc" description="GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="../SharedLib/src" />
+				<pathelement location="../FormDesigner/src" />
+				<pathelement location="src" />
+				<path refid="project.class.path" />
+			</classpath>
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx512M" />
+			<jvmarg value="-Xss64M" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg value="-style" />
+			<arg value="OBFUSCATED" />
+			<arg value="-logLevel" />
+			<arg value="INFO" />
+			<arg value="-compileReport" />
+			<arg value="org.openrosa.FormDesigner" />
+		</java>
+	</target>
+
+	<target name="devmode" description="Run development mode">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="project.class.path" />
+			</classpath>
+			<jvmarg value="-Xmx256M" />
+			<arg value="-startupUrl" />
+			<arg value="KoBoFormDesigner.html" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg value="org.openrosa.FormDesigner" />
+		</java>
+	</target>
+
+	<target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+	<target name="war" depends="clean,compile,gwtc" description="Create a war file">
+		<zip destfile="KoBoFormDesigner.war" basedir="war" />
+	</target>
+
+	<target name="clean" description="Cleans this project">
+		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/KoBoFormDesigner" failonerror="false" />
+	</target>
+
+	<target name="deploy" description="Deploy web application">
+		<deploy url="${url}" username="${username}" password="${password}" path="${path}" war="${webapp.path}.war" update="true" />
+	</target>
+
+	<target name="undeploy" description="Undeploy web application">
+		<undeploy url="${url}" username="${username}" password="${password}" path="${path}" />
+	</target>
+
+	<!-- Webapp lifecycle control -->
+	<target name="start" description="Start web application">
+		<start url="${url}" username="${username}" password="${password}" path="${path}" />
+	</target>
+	<target name="reload" description="Reload web application">
+		<reload url="${url}" username="${username}" password="${password}" path="${path}" />
+	</target>
+	<target name="stop" description="Stop web application">
+		<stop url="${url}" username="${username}" password="${password}" path="${path}" />
+	</target>
+
+	<target name="list" description="List web applications">
+		<list url="${url}" username="${username}" password="${password}" />
+	</target>
+
+	<target name="Jettify" description="Package Jetty in KoBo">
+		<delete dir="classes" failonerror="false" />
+		<mkdir dir="classes" />
+		<javac srcdir="src" sourcepathref="launcher.source.path" destdir="classes" classpathref="launcher.class.path" debug="on">
+			<include name="org/openrosa/KoboFormDesignerLaunch.java" />
+			<include name="org/openrosa/KoboInstallationConstants.java" />
+		</javac>
+		<java classname="org.openrosa.KoboFormDesignerLaunch">
+			<classpath refid="launcher.class.path"/>
+		</java>
+	</target>
+</project>

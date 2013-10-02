@@ -1,0 +1,5 @@
+<module rename-to='SharedLib'>
+      <!-- Source paths -->  
+	  <source path="client" />
+	  <source path="shared" />
+</module>
