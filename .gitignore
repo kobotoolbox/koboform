@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+KoboOpenRosa/war/
 
 # External tool builders
 .externalToolBuilders/
