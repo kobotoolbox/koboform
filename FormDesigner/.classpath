@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SharedLib"/>
+	<classpathentry kind="lib" path="/SharedLib/lib/gwt-datepicker-r29.jar" sourcepath="/home/gary/dev/java/purecforms/OpenRosa/lib/gwt-datepicker-r29.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-dnd-3.0.1.jar" sourcepath="/home/gary/dev/java/purecforms/FormDesigner/lib/gwt-dnd-3.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

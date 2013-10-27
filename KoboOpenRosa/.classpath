@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="lib/gwt-datepicker-r29.jar"/>
+	<classpathentry kind="lib" path="lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/XMLUnit"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/gxt-2.2.3-gwt22.jar"/>
+	<classpathentry kind="lib" path="lib/gwt-html5-storage.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FormDesigner"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SharedLib"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

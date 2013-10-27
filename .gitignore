@@ -3,7 +3,6 @@
 #################
 
 *.pydevproject
-.project
 .metadata
 bin/
 tmp/
@@ -12,10 +11,9 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.classpath
 .settings/
 .loadpath
-KoboOpenRosa/war/
+
 
 # External tool builders
 .externalToolBuilders/
@@ -29,6 +27,11 @@ KoboOpenRosa/war/
 # PDT-specific
 .buildpath
 
+
+#################
+## Project specific output
+#################
+KoboOpenRosa/war/
 
 #################
 ## Visual Studio
