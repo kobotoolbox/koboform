@@ -2,7 +2,7 @@ koboform
 ========
 The KoBo Project data collection methodology uses hardware and software technologies to enable researchers (and others) collecting, collating, and presenting information. The basic principles are ease of use, flexibility, and openness to development.
 
-= Introduction =
+<h2>Introduction</h2>
 
 The KoBo project assists researchers in collecting secure and accurate data in challenging environments
 
