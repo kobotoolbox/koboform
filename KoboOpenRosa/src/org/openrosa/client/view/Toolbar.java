@@ -641,8 +641,8 @@ public class Toolbar extends Composite implements ILocaleListChangeListener,
 		menu.add(gpsBut);
 		menu.add(bcdBut);
 		menu.add(triggerBut);
-		menu.add(rptBut);
-		menu.add(grpBut);
+		//menu.add(rptBut);
+		//menu.add(grpBut);
 
 		splitItem.setMenu(menu);
 		splitItem.setEnabled(false);

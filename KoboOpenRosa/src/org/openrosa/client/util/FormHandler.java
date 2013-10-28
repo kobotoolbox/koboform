@@ -328,7 +328,7 @@ public class FormHandler {
 			return questionDef;
 		}//end if insert point is an option
 		
-		//if the innset point is a group
+		//if the insert point is a group
 		else if(insertPoint instanceof GroupDef){
 			//update the binding
 			String bindingStr = getNewQuestionBinding(form, insertPoint, false);

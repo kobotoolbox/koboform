@@ -408,7 +408,7 @@ public class FormsTreeView extends com.extjs.gxt.ui.client.widget.Composite impl
 	}
 	
 	/**
-	 * Used to add a new object at a spcecified index
+	 * Used to add a new object at a specified index
 	 * @param root
 	 * @param text
 	 * @param userObject
