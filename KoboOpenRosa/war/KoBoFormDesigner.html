@@ -1,0 +1,542 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="gwt:module" content="KoBoFormDesigner"/>
+    <title>KoBo Form Designer</title>
+    <link rel="shortcut icon" HREF="koboicon.ico"> 
+    <link rel="stylesheet" type="text/css" href="gxt/css/gxt-all.css" /> 
+	<link rel="stylesheet" type="text/css" href="KoBoFormDesigner.css" /> 
+    
+   </head>
+  <body>  
+    <iframe sandbox="allow-scripts allow-same-origin" src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+    <div id="kobo_formdesigner" style="width:100%; height:100%;">
+    <div id="waitDiv">
+    	<h1 style="font-size: 20px;">Please wait while KoBo Form Designer loads</h1>
+    	<br/>
+    	<img src="img/wait_to_load.gif"/>
+    </div>
+    </div>
+    <div id="title" style="visibility:hidden;">KoBo FormDesigner</div>
+    <div id="rubberBand"></div>
+    <!-- <div id="formId" style="visibility:hidden;">18</div> -->
+    <div id="dateTimeSubmitFormat" style="visibility:hidden;">yyyy-MM-dd hh:mm a</div>
+    <div id="dateTimeDisplayFormat" style="visibility:hidden;">dd/MM/yyyy hh:mm a</div>
+    <div id="timeSubmitFormat" style="visibility:hidden;">hh:mm a</div>
+    <div id="timeDisplayFormat" style="visibility:hidden;">hh:mm a</div>
+    <div id="dateSubmitFormat" style="visibility:hidden;">yyyy-MM-dd</div>
+    <div id="dateDisplayFormat" style="visibility:hidden;">dd/MM/yyyy</div>
+    <div id="showLanguageTab" style="visibility:hidden;">1</div>
+    <div id="showXformsSourceTab" style="visibility:hidden;">1</div>
+    <div id="showLayoutXmlTab" style="visibility:hidden;">1</div>
+    <div id="showModelXmlTab" style="visibility:hidden;">1</div>
+    <div id="showJavaScriptTab" style="visibility:hidden;">1</div>
+    <div id="allowBindEdit" style="visibility:hidden;">1</div>
+    
+    <div id="fileOpenUrlSuffix" style="visibility:hidden;">fileOpen</div>
+    <div id="fileSaveUrlSuffix" style="visibility:hidden;">fileSave</div>
+    
+    <!-- <div id="entityIdName" style="visibility:hidden;">patientId</div> -->
+    <!-- <div id="formIdName" style="visibility:hidden;">formId</div> -->
+    
+    <!-- <div id="formDefDownloadUrlSuffix" style="visibility:hidden;">moduleServlet/xforms/xformDownload?target=xform&contentType=xml&</div> -->
+    <div id="formDefUploadUrlSuffix" style="visibility:hidden;">formDefUploadUrlSuffix</div>
+    <!-- <div id="formDefRefreshUrlSuffix" style="visibility:hidden;">moduleServlet/xforms/xformDownload?target=xformrefresh&contentType=xml&</div> -->
+    
+    <!-- <div id="entityFormDefDownloadUrlSuffix" style="visibility:hidden;">moduleServlet/xforms/xformDownload?target=xformentry&contentType=xml&</div> -->
+    <!-- <div id="formDataUploadUrlSuffix" style="visibility:hidden;">module/xforms/xformDataUpload.form</div> -->
+    <!-- <div id="afterSubmitUrlSuffix" style="visibility:hidden;">patientDashboard.form?</div> -->
+    
+    <!-- <div id="loading"><img src="loading.gif">Loading app</div> -->
+    
+    <div id="localeList" style="visibility:hidden;">en:English</div>
+    
+    <script language="javascript">
+    	
+    	var formXmlToSave = "default value";
+    	var formXmlToLoad = "default value";
+    	var blockXmlToSave = "default value";
+    	
+
+    
+    	var PurcformsText = {
+    	
+    			//SET VERSION NUMBER HERE//
+    			title_version: "KoBo Form Designer - v1.0.26",
+ 				helpURL: "http://www.kobotoolbox.org/support/userguide",   	
+    	
+ 				error: "Error",
+    	    	help: "Help",
+    	    	open: "Open",
+    	    	load: "Load",
+    	    	save: "Save",
+    	    	validate: "Validate",
+
+    	    	
+    	    	NoSingleQuotes: "Sorry, but you can't use single quotes(') or double quotes (\") in a value",
+    	    	close: "Close",
+
+    	    	refresh: "Refresh",
+    	    	addNew: "Add New",
+    	    	addNewChild: "Add New Child",
+    	    	moveUp: "Move Up",
+    	    	moveDown: "Move Down",
+    	    	cut: "Cut",
+    	    	copy: "Copy",
+    	    	paste: "Paste",
+    	    	
+    	    	languages: "Languages",
+
+    	    	about: "About",
+    	    	
+    	    	selectDeleteItem: "You must select an item first to delete it.",
+    	    	cant_paste_itemset_here: "Sorry, but you can't paste an item set here.",
+    	    	missing_question_for_predicate: "A predicate uses a question that is not refered to in this block. The predicate will be set to null.",
+    	    	data_instance_exists: "There already exists a data instance named",
+    	    	rename_new_data_instance: ". Rename the new data instance? If you do not rename the new instance, the existing instance will be used instead",
+    	    	
+    	    	//Add questions block from text
+    	    	addQuestionBlock: "Add Block",
+    	    	addQuestionsFromText: "Add Block From Text",
+    	    	addQuestionsFromLocal: "Add Block From Local",
+    	    	addQuestionsFromLibrary: "Add Items From Library",
+    	    	addQuestionsFromRemote: "Add Block From Remote",
+    	    	copyToLibrary: "Copy Selected to Library",
+				merge: "Add",
+				txtToMerge: "XML text to Add: ",
+				addBlockToBrowser: "Save this block to browser?",
+				SaveBlockAs: "Save block as?",
+				mustGiveNameForBlockWhenSaving: "You must provide a name for the block you are saving to the browser.",
+				aBlockAlreadyExistsWithThatName: "A block already exists with that name. Are you sure you want to overwrite it?",
+				overwriteBlock: "Overwrite Block?",
+				mustBeLoggedInOpenBlocks: "Sorry, but you must be logged in to open items.",
+				mustBeLoggedInSaveBlocks: "Sorry, but you must be logged in to save items.",				
+				selectBlockToLoad: "Select block to load:",
+				selectedDataTypeCanNotBeSavedToLibrary: "The selected data type cannot be saved to the Library",
+				mixedTypesCannotLibrary: "You cannot select mixed types to save to the Library",
+				saveToLibraryTitle: "Save to Library",
+				itemName: "Item Name: ",
+				tags: "Tags (comma seperated): ",
+				weight: "Weight: ",
+				saveAsTemplateBut: "Save as Template",
+				loadTemplateBut: "Load Template",
+				mustBeLoggedInSaveTemplates: "Sorry, but you must be logged in to save templates.",
+				mustBeLoggedInOpenTemplates: "Sorry, but you must be logged in to open templates.",
+				infoForBlock: "Fill out the information below for the block you are about to create.",
+				infoForQuestioninBlock: "Fill out the information below for the question: ",
+				WarningQuestion: "Warning, question",
+				isPartOfBlock: "is part of block",
+				BlocksAreAtomicDelete: "Blocks are meant to exist as indivisible units, are you sure you want to alter this question",
+				
+
+
+				//Question Properties
+				showAdvancedProperties: "Show Advanced Properties",
+				hideAdvancedProperties: "Hide Advanced Properties",
+    	    	qtnText: "Question Text",
+    	    	qtnId: "Itext ID",
+    	    	qtnHelpText: "Hint",
+    	    	qtnType: "Question Type",
+    	    	qtnBinding: "XML Node",
+    	    	qtnVisible: "Visible",
+    	    	qtnEnabled: "Enabled",
+    	    	qtnRequired: "Required",
+    	    	qtnDefaultValue: "Default Value",
+    	    	qtnXMLFromFolder: "Post Processor: ",
+    	    	qtnPreload: "Preload:",
+    	    	qtnPreloadParam: "Preload Parameters:",
+    	    	typeQuestion:"Type question name",
+
+    	    	//Option Properties
+    	    	optText: "Option Text",
+    	    	optQtnId: "IText ID",
+    	    	optBinding: "XML Binding",
+    	    	optDefaultValue: "Value",
+
+				//Form Properties
+				formId: "Itext ID",
+    	    	formText: "Form Name",
+    	    	formBinding: "XML Binding",
+
+    	    	//Group Properties
+    	    	groupId: "Itext ID",
+    	    	groupText: "Group Label",
+    	    	groupType: "Question Type",
+    	    	
+    	    	language: "Language",
+    	    	skipLogic: "Skip Logic",
+    	    	validationLogic: "Validation Logic",
+
+    	    	isEqualTo: "is equal to: ",
+    	    	forQuestion: "For question: ",
+    	    	enable: "Enable",
+    	    	
+    	    	cant_use_and_and_or: "Sorry, but KoBoForm doesn't currently support the use of both AND and OR boolean operators in conditions. Your conditional statements will be modified to conform with KoBoForm's abilities.",
+
+    	    	isNotValidQuestion: "is not a valid question",
+    	    	
+    	    	when: "When ",
+    	    	ofTheFollowingApply: "of the following apply:",
+    	    	all: "all",
+    	    	any: "any",
+    	    	none: "none",
+    	    	notAll: "not all",
+    	    	notSkippedOver: "is <span style=\"font-weight:bold;\">not</span> skipped over when",
+    	    	applySkipToOtherQuestions: "<br/>To apply the above conditions to mutliple questions at once click here: ",
+    	    	
+    	    	dataInstance: "Data Instance",
+
+    	    	isNotEqual: "is not equal to",
+    	    	isLessThan: "is less than",
+    	    	isLessThanOrEqual: "is less than or equal to",
+    	    	isGreaterThan: "is greater than",
+    	    	isGreaterThanOrEqual: "is greater than or equal to",
+    	    	isNull: "is null",
+    	    	isNotNull: "is not null",
+    	    	isInList: "is in list",
+    	    	isNotInList: "is not in list",
+    	    	startsWith: "starts with",
+    	    	doesNotStartWith: "does not start with",
+    	    	contains: "contains",
+    	    	doesNotContain: "does not contain",
+    	    	isBetween: "is between",
+    	    	isNotBetween: "is not between",
+    	    	regex: "regular expression",
+
+    			isValidWhen: "This question is <span style=\"font-weight:bold;\">valid</span> when ",
+    			errorMessage: "If <span style=\"font-weight:bold;\">not valid</span>, the user will be presented with this error message:<br/>",
+    			question: "Question",
+    			
+    			searchLocalLibrary: "Search Local Library",
+    			searchResults: "Search Results",
+    			activeSurvey: "Your Active Survey",
+    			selectedQuestion2: "Selected Question",
+    			selectComponentsFor: "Select Components to search for:",
+    			individualQuestions: "Individual Questions",
+    			blocks: "Blocks",
+    			options: "Options",
+    			searchTerms: "Search Terms:",
+    			search: "Search",
+    			andor: "How do you want multiple search terms joined?",
+    			booleanAnd: "AND",
+    			booleanOr: "OR",
+    			label: "Label",
+    			type: "Type",
+    			subType: "Sub-Type",
+    			numberOfQuestionsShort: "#ofQs",
+    			tagColumn: "Tags",
+    			include: "Include",
+    			warning: "Warning",
+    			questedReferedToBySkipLogic: " is referenced by the following questions as a skip logic condtion: ",
+    			
+
+    			load: "Load",
+    			leaveUnsaved: "Are you sure you want to leave? The form you are working on is unsaved.",
+
+    			deleteTreeItemPrompt: "Do you really want to delete the selected item and all its children (if any) ?",
+    			newFormConfirm: "Warning, by loading a new form you will lose all your work on the current form. Are you sure you want to do this?",
+    			emptyFormError: "The XML you attempted to load is empty. Please try again.",
+
+    			selectedPage: "The selected page [",
+    			shouldNotSharePageBinding: "] should not share the same page number/binding with page [",
+    			selectedQuestion: "The selected question [",
+    			shouldNotShareQuestionBinding: "] should not share the same binding with question [",
+    			selectedOption: "The selected option [",
+    			shouldNotShareOptionBinding: "] should not share the same binding with option [",
+    			newForm: "New Form",
+    			page: "Page",
+    			option: "Option",
+    			noDataFound: "No data found.",
+
+    			formSaveSuccess: "Form saved successfully",
+    			selectSaveItem: "Please select the item to save.",
+    			formSubmitSuccess: "Form Data Submitted Successfully",
+    			missingDataNode: "Missing data node for :",
+
+    			openingForm: "Opening Form",
+    			savingForm: "Saving Form",
+    			refreshingForm: "Refresing Form",
+    			translatingFormLanguage: "Translating Form Language",
+    			savingLanguageText: "Saving Language Text",
+    			loadingDesignSurface: "Loading Design Surface",
+
+    			loadingPreview: "Loading Preview",
+    			unexpectedFailure: "Unexpected Failure",
+    			uncaughtException: "Uncaught exception: ",
+    			causedBy: "Caused by: ",
+    			openFile: "Open File",
+    			saveFileAs: "Save File As",
+    		    layout: "Layout",
+
+    		    text: "Text",
+
+    		    more: "More",
+    		    requiredErrorMsg: "Please answer this required question.",
+
+				//ToolTips
+    		    questionIdDesc: "The question text internal identifier, used in mapping internationalization. For Questions, it must be a valid xml node name. Written Into XML &lt;text id=&quot;Entry&quot; ... /&gt; ",
+    		    questionBindingDesc: "The XML internal identifier for the question. Written Into XML. This must be a valid xml node name. This is used in the XML Form to correlate the Instance heading, the body bindings, and the controls",
+    		    questionTextDesc: "The question text. Top bolded text displayed in the survey.",
+    		    questionDescDesc: "The question description. Subtext displayed in the survey beneath the question Text (Not Required)",
+    		    defaultValDesc: "The default value or answer. Entered into the survey as a default answer and retained in the recorded survey unless changed (Not Required)",
+    		    questionTypeDesc: "The type of question. Determines the survey question control displayed to the surveyor as well as the format of the recorded answer",
+    		    visibleDesc: "Uncheck to hide this question within the survey. If not visible surveyors will not see this question and it is recommended that a default value be provided",
+    		    enabledDesc: "Uncheck to disallow editing of the answer content. The question will still be displayed if visible",
+    		    requiredDesc: "Check to force the survey to recieve an answer to this question before permitting the survey to continue",
+    		    xmlFromFolderDesc: "Where your \"Instances\" folder is on your phone's SD card",
+    		    preloadDesc: "Put any of the Java Rosa preloads here that you want to use for this question. Preloads can be used to preload a question with a value like the current time, or the device ID",
+    		    preloadParamDesc: "Put any of the Java Rosa preloads parameters here that you want to use for this question. Preloads can be used to preload a question with a value like the current time, or the device ID",
+
+    		    qtnTypeText: "Text",
+    		    qtnTypeNumber: "Number",
+    		    qtnTypeDecimal: "Decimal",
+    		    qtnTypeDate: "Date",
+    		    qtnTypeTime: "Time",
+    		    qtnTypeDateTime: "Date and Time",
+    		    qtnTypeBoolean: "Boolean",
+    		    qtnTypeSingleSelect: "Single Select",
+    		    qtnTypeMultSelect: "Multiple Select",
+    		    qtnTypeRepeat: "Repeat",
+    		    qtnTypePicture: "Picture",
+    		    qtnTypeVideo: "Video",
+    		    qtnTypeAudio: "Audio",
+    		    qtnTypeGroup: "Group",
+    		    qtnTypeTrigger: "Trigger",
+    		    qtnTypeGPS: "GPS",
+        		qtnTypeBarcode: "Barcode",
+        		
+        		//all things SPSS
+        		createSpssFile: "SPSS File",
+        		createSPSSFileDialog: "Create SPSS File",
+        		SaveSPSSFile: "Save SPSS File",
+        		
+        		//toolbar button lables
+        		addQstToolbarBut:"Add Question", 
+        		textQstToolbarBut:"Text Question",
+        		intQstToolbarBut:"Integer Question", 
+        		decQstToolbarBut:"Decimal Question", 
+        		dateQstToolbarBut:"Date Question",
+        		multiQstToolbarBut:"MultiSelect Question", 
+        		singleQstToolbarBut:"SingleSelect Question", 
+        		menuToolbarBut:"Menu",
+        		viewFormTextToolbarBut:"View Form Text", 
+        		saveToFileToolbarBut:"Save To File...", 
+        		loadFromTextToolbarBut:"Load from Text...",
+        		localizationToolbarBut:"Localization", 
+        		openFromFileToolbarBut:"Open From File...", 
+        		newXformToolbarBut:"New Xform", 
+        		timeQstToolbarBut:"Time Question",
+        		dateTimeQstToolbarBut:"Date+Time Question", 
+        		picQstToolbarBut:"Picture Question", 
+        		videoQstToolbarBut:"Video Question",
+        		audioQstToolbarBut:"Audio Question", 
+        		gpsQstToolbarBut:"GPS Question", 
+        		groupQstToolbarBut:"Add Group",
+        		barQstToolbarBut:"Barcode Question", 
+        		triggerQstToolbarBut:"Trigger Question", 
+        		repeatQstToolbarBut:"Add Repeat Section",
+        		
+        		
+        		
+        		
+
+        		
+        		addDataElement: "Add Data Element",
+        		addDataInstance: "Add Data Instance",
+        		addData: "Add Data",
+        		dataInstanceId: "Data Instance ID",
+        		dataElementText: "Data Element Name",
+        		addNewDataAttributeButton: "Add new attribute",
+        		dataAttributes: "Data Attributes:",
+        		attributeName: "Attribute Name",
+        		attributeValue: "Attribute Value",
+        		removeAttribute: "Remove Attribute",
+        		attributeNameNoSpace: "Attr",
+        		attributeDefaultValue: "value",
+        		useItemSet: "Use Itemset",
+        		useItemSetHint: "Do you want to use an itemset instead of statically defined options? Itemsets are used for dynamic selection choices base on previous choices",
+        		switchQuestionDataSourceWarning: "Warning, by switching the data source of this question you will lose all the existing select options. Are you sure you want to do this?",
+        		dataInstances: "Data Instances:", 
+        		valueAttribute: "Value Attribute:",
+        		labelAttribute: "Label Attribute:",
+        		pathElement: "Level",
+        		predicateElement: "Predicate",
+        		attribute: "Attribute:",
+        		enablePredicate: "Enable Predicate",        		
+        		matches: "Matches",
+        		addPathNode: "Add Level",
+        		deletePathNode: "Delete Level",
+        		noMoreLevelsForDataInstance: "Sorry, there are no more levels in this data instance",
+        		noDataInInstance: "Sorry, there is no data in that data instance",
+        		noInstance: "Sorry, you must select an instance with data",
+        		importDataCsv: "Import CSV",
+        		dataSetName: "Data Instance ID:",
+        		dataSetNameRequired: "You must enter a data instance ID",
+        		dataIDNotUnqiue: "The data instance ID you entered is not unique",
+
+        		    
+        		deleteCondition: "Delete Condition",
+        		areYouSureYouWantToDelete: "Are you sure you want to delete",
+        		addCondition: "Add Condition",
+        		value: "Value",
+        		questionValue: "Question value",
+        		and: "and",
+        		deleteItemPrompt: "Do you really want to delete this item?",
+        		changeWidgetTypePrompt: "Do you really want to change to this type and lose all the options created, if any?",
+        		removeRowPrompt: "Do you really want to remove this row?",
+        		deleteItem: "Delete",
+        		cancel: "Cancel",
+        		close: "Close",
+        		clickToAddNewCondition: "< Click here to add new condition >",
+        		authenticationPrompt: "Please enter your user name and password",
+        		invalidUser: "Invalid UserName or Password",
+        		login: "Login",
+        		userName: "User Name",
+        		password: "Password",
+           		yes: "Yes",
+           		no: "No",
+           		processingMsg: "Please wait while processing...",
+           		length: "Length",
+           		clickForOtherQuestions: "< Apply to other questions >",
+           		ok: "Ok",
+           		loading: "loading",
+
+           		allQuestions: "All Questions",
+           		selectedQuestions: "Selected Questions",
+           		otherQuestions: "Other Questions",
+           		localeChangePrompt: "Changing locale will lead to loss of any unsaved changes. Do you want to go ahead and change?",
+           		id: "ID",
+           		
+           		// User and authentication text
+           		notLoggedIn: "Not Logged In",
+           		logIn: "Log In",
+           		logOut: "Log Out",
+           		signUp: "Sign Up",
+           		settings: "Settings",
+           		newUserAuthenticationPrompt: "Sign Up: Please enter your new user name and password",
+           		userNameAlreadyExists: "That user name already exists",
+           		confirmPassword: "Confirm Password",
+           		passwordsMatch: "Passwords Match",
+           		passwordsDontMatch: "Passwords Do Not Match",
+           		
+           		//settings stuff
+           		settingsTitle: "Settings",
+           		
+           		//Save to Browser
+           		saveToBroswerBut: "Save to Browser",
+           		saveFormToBrowserTitle: "Save Form to Browser's memory",
+           		formName: "Form Name:",
+           		mustLoginFirst: "Sorry, but you must be logged in to save forms.",
+           		
+           		//load from Browser           		
+           		loadFromBroswerBut: "Load from Browser",
+           		loadFormFromBrowserTitle: " Load Form From Browser",
+           		mustLoginFirstLoad: "Sorry, but you must be logged in to open forms.",
+           		formToLoad: "Form to load:",
+           		noBrowserFormToLoad: "There are no forms to load for your user account.",
+           		
+           		//delete from Browser
+           		deleteFromBroswerBut: "Delete from Browser",
+           		deleteFormFromBrowserTitle: "Delete Forms From The Browser",
+           		formsToDelete: "Forms to delete:",
+           		noBrowserFormToDelete: "There are no forms for your user account.",
+           		mustLoginFirstDelete: "Sorry, but you must be logged in to delete forms.",
+           		bytesUsed: " out of 5,000kb are currently in use by the Form Builder",
+           		delete: "Delete",
+           		deleteConfirm: "Are you sure you want to delete this? Deleting can not be undone.",  
+           				
+           		handCode: "Hand Code",
+           		warningSwitchConditionModes: "Warning: you will lose all of your conditional work if you switch edit modes. Are you sure you want to do this?",
+           				
+           		//cascading questions dialog
+           		cascadeDialogTitle: "Add Cascading Questions",
+           		createCascadingQuestions: "Import CSV",
+           		awaitingInput: "Awaiting Input",
+           		cascadeHelp: "Paste the data for the cascading questions into the text are below. The question data should be in CSV format with the top row as the labels of the different levels in the cascade. For example:<br/><br/>Country,State<br/>USA,Alabama<br/>USA,Alaska<br/>.....<br/>Nigeria,Abuja",
+           		
+           		//save to file
+           		saveFormToFileTitle: "Save Form to File",
+           		
+           		//load from file
+           		openFormFromFileTitle: "Load Form from File",
+           		
+           		//for the post processor
+           		XML_AGGREGATE_COMMAND: "Aggregate",           		
+				CSV_CONVERT_COMMAND: "Convert to CSV",
+				STATUS_INIT: "Ready",				
+				COUNTER_SYNC_TEXT: "Surveys Aggregated: %d",				
+				COUNTER_TRANS_TEXT: "Surveys Converted to CSV: %d",
+				BROWSE_TEXT: "Browse",
+				CHANGE_CSV_DIR_TEXT: "Change CSV Directory",
+				CHANGE_SRC_DIR_TEXT: "Change Aggregate Storage Directory",
+				CHANGE_XML_DIR_TEXT: "Change Survey Source Directory",
+				CSV_CONVERT_PROC_COMPLETE_TEXT: "Csv Transcribe Process Completed",
+				TASK_COMPLETED_TEXT: "Task completed.\n",
+				COMPLETED_PERCENT_TEXT: "Completed %d%%.\n",
+				XML_AGGREGATE_COMPLETE_TEXT: "XML Sync Process Completed",
+				RETRY_TEXT: "Retry", 
+				SET_TEXT: "Set",				
+				STRING_NODIR_MESSAGE: "The %1$s does not exist. \nThe application can recheck the \ndirectory now if you select 'Retry'. \nOtherwise, select 'Set' to change the \n%1$s location \nCurrent Directory %2$s",				
+				STRING_NODIR_CSV: "CSV storage directory",
+				STRING_NODIR_TITLE: "Set: %1$s",
+				STARTING_TEXT: "Starting",
+				WRITING_XML_TO_STORAGE: "Writing XMl to Storage",
+				CONVERT_TO_CSV_TASK_TEXT: "Convert to CSV Task",
+				AGGREGATE_XML_TASK_TEXT: "Aggregate XML Task",
+				DIR_PREF_SET_TEXT: "New Directory Preferences Set",
+				STATUS_TEXT: "Status",				
+				CONVERT_TO_CSV_TEXT: "Convert to CSV",
+				AGGREGATE_XML_TEXT: "Aggregate XML survey instances from mobile device(s)",
+				COUNTER_TEXT: "Counter",
+				SURVEY_INSTANCES_TEXT: "Survey instances:",
+				SAVE_TO_CSV_TEXT: "Save CSV To:",
+				AGGREGATE_TO_TEXT: "Aggregate To:",           	
+				
+				
+			 		  };
+
+		  function isUserAuthenticated(){
+			  authenticationCallback(false);
+			  return false; //Not expected to be used in the design mode.
+		  }
+
+		  function authenticateUser(username, password){
+			  authenticationCallback(true);
+			  return true; //Not expected to be used in the design mode.
+		  }
+
+		  function searchExternal(key,value,parentElement,textElement,valueElement){
+
+		  }
+
+		  function initialize(){
+			  
+		  }
+		  
+    </script>
+    
+  </body>
+  
+  <script type="text/javascript" language="javascript" src="KoBoFormDesigner/KoBoFormDesigner.nocache.js"></script>
+  <script type="text/javascript" language="javascript" src="gxt/flash/swfobject.js"></script>
+  <script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-26003863-1']);
+	_gaq.push(['_setDomainName', 'kobotoolbox.org']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+  </script>
+</html>
