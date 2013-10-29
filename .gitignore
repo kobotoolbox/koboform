@@ -31,7 +31,14 @@ local.properties
 #################
 ## Project specific output
 #################
-KoboOpenRosa/war/
+KoboOpenRosa/war/fileioapplets/
+KoboOpenRosa/war/gxt/
+KoboOpenRosa/war/img/
+KoboOpenRosa/war/KoBoFormDesigner/
+KoboOpenRosa/war/postprocessorapplet/
+KoboOpenRosa/war/validatorapplet/
+KoboOpenRosa/war/WEB-INF/
+KoboOpenRosa/war/.htaccess
 
 #################
 ## Visual Studio
