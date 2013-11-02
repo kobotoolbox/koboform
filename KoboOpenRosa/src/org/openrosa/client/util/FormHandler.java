@@ -2172,10 +2172,12 @@ public class FormHandler {
 		
 		//not sure why you do this at the end, but it's what was done back in the day
 		doc.getDocumentElement().setAttribute("xmlns:jr","http://openrosa.org/javarosa");
-		doc.getDocumentElement().setAttribute("xmlns","http://www.w3.org/1999/xhtml");
-		doc.getDocumentElement().setAttribute("xmlns:h","http://www.w3.org/1999/xhtml");
+		doc.getDocumentElement().setAttribute("xmlns:h","http://www.w3.org/2002/xhtml");
+		doc.getDocumentElement().setAttribute("xmlns:orx","http://openrosa.org/xforms/");
+		doc.getDocumentElement().setAttribute("xmlns:ev","http://www.w3.org/2001/xml-events");
+
 		//our very own name space used by the block id attribute
-		doc.getDocumentElement().setAttribute("xmlns:kobo","http://www.kobotoolbox.org/xmlns");
+		//doc.getDocumentElement().setAttribute("xmlns:kobo","http://www.kobotoolbox.org/xmlns");
 		doc.getDocumentElement().setAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
 		
 		
