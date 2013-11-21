@@ -39,6 +39,10 @@ KoboOpenRosa/war/postprocessorapplet/
 KoboOpenRosa/war/validatorapplet/
 KoboOpenRosa/war/WEB-INF/
 KoboOpenRosa/war/.htaccess
+KoboOpenRosa/gwt-unitCache
+KoboOpenRosa/.gwt/.gwt-log
+FormDesigner/war
+FormDesigner/.gwt/.gwt-log
 
 #################
 ## Visual Studio
