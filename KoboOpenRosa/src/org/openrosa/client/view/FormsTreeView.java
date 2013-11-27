@@ -164,6 +164,8 @@ public class FormsTreeView extends com.extjs.gxt.ui.client.widget.Composite impl
 		});
 
 
+		/*
+		 * Being commented out to fix github issue #106
 		//add drag and drop
 		TreePanelDragSource source = new TreePanelDragSource(treePanel);  
 		source.addDNDListener(new DNDListener() {  
@@ -178,7 +180,8 @@ public class FormsTreeView extends com.extjs.gxt.ui.client.widget.Composite impl
 				super.dragStart(e);  
 			}
 			
-		});  
+		}); 
+		*/ 
 
 		JrTreePanelDropTarget target = new JrTreePanelDropTarget(treePanel,this);  
 		target.setAllowSelfAsSource(true);  
